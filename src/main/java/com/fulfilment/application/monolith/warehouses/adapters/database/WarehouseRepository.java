@@ -16,25 +16,64 @@ public class WarehouseRepository implements WarehouseStore, PanacheRepository<Db
 
   @Override
   public void create(Warehouse warehouse) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'create'");
+    DbWarehouse dbWarehouse = DbWarehouse.fromWarehouse(warehouse);
+
+    this.persistAndFlush(dbWarehouse);
+
+    warehouse.id = dbWarehouse.id;
   }
 
   @Override
   public void update(Warehouse warehouse) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'replace'");
+
+    DbWarehouse dbWarehouse;
+
+    if (warehouse.id != null) {
+      dbWarehouse = this.findById(warehouse.id);
+    } else {
+      dbWarehouse = this
+              .find("businessUnitCode = ?1 and archivedAt is null",
+                      warehouse.businessUnitCode)
+              .firstResult();
+    }
+
+    if (dbWarehouse == null) {
+      throw new IllegalArgumentException(
+              "Warehouse not found: " + warehouse.businessUnitCode);
+    }
+
+    dbWarehouse.location = warehouse.location;
+    dbWarehouse.capacity = warehouse.capacity;
+    dbWarehouse.stock = warehouse.stock;
+    dbWarehouse.createdAt = warehouse.createdAt;
+    dbWarehouse.archivedAt = warehouse.archivedAt;
   }
 
   @Override
   public void remove(Warehouse warehouse) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'remove'");
+    DbWarehouse dbWarehouse = this
+            .find("businessUnitCode = ?1 and archivedAt is null",
+                    warehouse.businessUnitCode)
+            .firstResult();
+
+    if (dbWarehouse != null) {
+      this.delete(dbWarehouse);
+    }
   }
 
   @Override
   public Warehouse findByBusinessUnitCode(String buCode) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    DbWarehouse dbWarehouse = this
+            .find("businessUnitCode = ?1 and archivedAt is null", buCode)
+            .firstResult();
+
+    return dbWarehouse == null ? null : dbWarehouse.toWarehouse();
+  }
+
+  @Override
+  public Warehouse findWarehouseById(Long id) {
+    DbWarehouse dbWarehouse = this.findByIdOptional(id).orElse(null);
+
+    return dbWarehouse == null ? null : dbWarehouse.toWarehouse();
   }
 }
