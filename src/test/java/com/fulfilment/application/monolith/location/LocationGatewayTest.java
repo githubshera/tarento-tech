@@ -1,18 +1,46 @@
+
 package com.fulfilment.application.monolith.location;
 
+import com.fulfilment.application.monolith.warehouses.domain.models.Location;
 import org.junit.jupiter.api.Test;
 
-public class LocationGatewayTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class LocationGatewayTest {
+
+  private final LocationGateway locationGateway = new LocationGateway();
 
   @Test
-  public void testWhenResolveExistingLocationShouldReturn() {
-    // given
-    // LocationGateway locationGateway = new LocationGateway();
+  void shouldReturnLocationWhenIdentifierExists() {
 
-    // when
-    // Location location = locationGateway.resolveByIdentifier("ZWOLLE-001");
+    // When
+    Location location =
+            locationGateway.resolveByIdentifier("ZWOLLE-001");
 
-    // then
-    // assertEquals(location.identification, "ZWOLLE-001");
+    // Then
+    assertNotNull(location);
+    assertEquals("ZWOLLE-001", location.identification);
+  }
+
+  @Test
+  void shouldReturnNullWhenIdentifierDoesNotExist() {
+
+    // When
+    Location location =
+            locationGateway.resolveByIdentifier("INVALID-001");
+
+    // Then
+    assertNull(location);
+  }
+
+  @Test
+  void shouldReturnNullWhenIdentifierIsNull() {
+
+    // When
+    Location location =
+            locationGateway.resolveByIdentifier(null);
+
+    // Then
+    assertNull(location);
   }
 }

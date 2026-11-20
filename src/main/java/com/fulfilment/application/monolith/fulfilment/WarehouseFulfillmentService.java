@@ -11,7 +11,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import jakarta.transaction.Transactional;
-import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class WarehouseFulfillmentService {
@@ -20,24 +19,25 @@ public class WarehouseFulfillmentService {
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;
 
-    @Inject
-    EntityManager entityManager;
+    private final EntityManager entityManager;
 
     public WarehouseFulfillmentService(
             WarehouseFulfillmentRepository fulfillmentRepository,
             ProductRepository productRepository,
-            WarehouseRepository warehouseRepository) {
+            WarehouseRepository warehouseRepository,
+            EntityManager entityManager) {
 
         this.fulfillmentRepository = fulfillmentRepository;
         this.productRepository = productRepository;
         this.warehouseRepository = warehouseRepository;
+        this.entityManager = entityManager;
     }
 
     @Transactional
     public void assign(Long storeId, Long warehouseId, Long productId) {
 
         // 1. Validate Store
-        Store store = Store.findById(storeId);
+        Store store = entityManager.find(Store.class, storeId);
 
         if (store == null) {
             throw new IllegalArgumentException("Store not found");

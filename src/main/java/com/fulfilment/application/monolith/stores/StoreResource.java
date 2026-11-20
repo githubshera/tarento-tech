@@ -160,12 +160,11 @@ public class StoreResource {
     }
   }
 
-  private void executeAfterCommit(Runnable action) {
+  void executeAfterCommit(Runnable action) {
     transactionRegistry.registerInterposedSynchronization(
             new Synchronization() {
               @Override
               public void beforeCompletion() {
-                // Nothing to do
               }
 
               @Override
