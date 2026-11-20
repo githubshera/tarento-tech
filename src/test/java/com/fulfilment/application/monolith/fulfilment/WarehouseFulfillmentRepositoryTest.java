@@ -95,7 +95,6 @@ class WarehouseFulfillmentRepositoryTest {
         fulfillment.store = store;
         fulfillment.warehouse = warehouse;
         fulfillment.product = product;
-
         entityManager.persist(fulfillment);
     }
 }
