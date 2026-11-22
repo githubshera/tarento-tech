@@ -2,6 +2,7 @@ com\fulfilment\application\monolith\fulfilment\domain\models\WarehouseFulfillmen
 com\fulfilment\application\monolith\fulfilment\application\ports\out\StoreResolver.class
 com\fulfilment\application\monolith\fulfilment\application\ports\out\ProductResolver.class
 com\fulfilment\application\monolith\warehouses\domain\models\Warehouse.class
+com\fulfilment\application\monolith\fulfilment\adapters\restapi\FulfillmentExceptionMapper.class
 com\fulfilment\application\monolith\warehouses\adapters\database\WarehouseRepository.class
 com\fulfilment\application\monolith\warehouses\application\usecases\ArchiveWarehouseUseCase.class
 com\fulfilment\application\monolith\warehouses\application\ports\in\ReplaceWarehouseOperation.class
@@ -33,9 +34,11 @@ com\fulfilment\application\monolith\stores\LegacyStoreManagerGateway.class
 com\fulfilment\application\monolith\fulfilment\adapters\restapi\WarehouseFulfillmentRequest.class
 com\fulfilment\application\monolith\stores\StoreResource$ErrorMapper.class
 com\warehouse\api\beans\Warehouse.class
+com\fulfilment\application\monolith\fulfilment\domain\exceptions\DuplicateFulfillmentException.class
 com\fulfilment\application\monolith\fulfilment\adapters\database\WarehouseFulfillmentEntity.class
 com\fulfilment\application\monolith\products\ProductResource.class
 com\fulfilment\application\monolith\fulfilment\adapters\database\ProductResolverAdapter.class
 com\fulfilment\application\monolith\location\LocationGateway.class
+com\fulfilment\application\monolith\fulfilment\adapters\restapi\FulfillmentExceptionMapper$ErrorResponse.class
 com\fulfilment\application\monolith\warehouses\application\usecases\CreateWarehouseUseCase.class
 com\warehouse\api\WarehouseResource.class

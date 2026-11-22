@@ -1,11 +1,13 @@
 
 package com.fulfilment.application.monolith.fulfilment.domain.validators;
 
+import com.fulfilment.application.monolith.fulfilment.domain.exceptions.DuplicateFulfillmentException;
+
 public class FulfillmentValidator {
 
     public void validateNoDuplicateAssignment(boolean alreadyExists) {
         if (alreadyExists) {
-            throw new IllegalArgumentException(
+            throw new DuplicateFulfillmentException(
                     "This fulfillment association already exists");
         }
     }

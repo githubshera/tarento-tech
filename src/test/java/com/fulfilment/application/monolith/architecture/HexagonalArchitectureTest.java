@@ -18,42 +18,47 @@ class HexagonalArchitectureTest {
 
     @Test
     void warehouseDomainShouldNotDependOnAdapters() {
-        ArchRule rule = noClasses()
-                .that().resideInAPackage("..warehouses.domain..")
+        noClasses()
+                .that().resideInAPackage(
+                        "com.fulfilment.application.monolith.warehouses.domain..")
                 .should().dependOnClassesThat()
-                .resideInAPackage("..warehouses.adapters..");
-
-        rule.check(classes);
+                .resideInAPackage(
+                        "com.fulfilment.application.monolith.warehouses.adapters..")
+                .check(classes);
     }
 
     @Test
     void warehouseDomainShouldNotDependOnApplication() {
-        ArchRule rule = noClasses()
-                .that().resideInAPackage("..warehouses.domain..")
+        noClasses()
+                .that().resideInAPackage(
+                        "com.fulfilment.application.monolith.warehouses.domain..")
                 .should().dependOnClassesThat()
-                .resideInAPackage("..warehouses.application..");
-
-        rule.check(classes);
+                .resideInAPackage(
+                        "com.fulfilment.application.monolith.warehouses.application..")
+                .check(classes);
     }
+
 
     @Test
     void fulfillmentDomainShouldNotDependOnAdapters() {
-        ArchRule rule = noClasses()
-                .that().resideInAPackage("..fulfilment.domain..")
+        noClasses()
+                .that().resideInAPackage(
+                        "com.fulfilment.application.monolith.fulfilment.domain..")
                 .should().dependOnClassesThat()
-                .resideInAPackage("..fulfilment.adapters..");
-
-        rule.check(classes);
+                .resideInAPackage(
+                        "com.fulfilment.application.monolith.fulfilment.adapters..")
+                .check(classes);
     }
 
     @Test
     void fulfillmentDomainShouldNotDependOnApplication() {
-        ArchRule rule = noClasses()
-                .that().resideInAPackage("..fulfilment.domain..")
+        noClasses()
+                .that().resideInAPackage(
+                        "com.fulfilment.application.monolith.fulfilment.domain..")
                 .should().dependOnClassesThat()
-                .resideInAPackage("..fulfilment.application..");
-
-        rule.check(classes);
+                .resideInAPackage(
+                        "com.fulfilment.application.monolith.fulfilment.application..")
+                .check(classes);
     }
 
     @Test

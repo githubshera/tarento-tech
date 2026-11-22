@@ -5,6 +5,7 @@ import com.fulfilment.application.monolith.fulfilment.application.ports.out.Fulf
 import com.fulfilment.application.monolith.fulfilment.application.ports.out.ProductResolver;
 import com.fulfilment.application.monolith.fulfilment.application.ports.out.StoreResolver;
 import com.fulfilment.application.monolith.fulfilment.application.ports.out.WarehouseResolver;
+import com.fulfilment.application.monolith.fulfilment.domain.exceptions.DuplicateFulfillmentException;
 import com.fulfilment.application.monolith.fulfilment.domain.models.WarehouseFulfillment;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -75,7 +76,6 @@ class AssignFulfillmentUseCaseTest {
 
     @Test
     void shouldAssignWarehouseSuccessfully() {
-
         mockValidEntities();
         mockValidAssignment();
 
@@ -98,7 +98,6 @@ class AssignFulfillmentUseCaseTest {
 
     @Test
     void shouldThrowExceptionWhenStoreNotFound() {
-
         when(storeResolver.existsById(1L)).thenReturn(false);
 
         IllegalArgumentException exception = assertThrows(
@@ -112,7 +111,6 @@ class AssignFulfillmentUseCaseTest {
 
     @Test
     void shouldThrowExceptionWhenProductNotFound() {
-
         when(storeResolver.existsById(1L)).thenReturn(true);
         when(productResolver.existsById(1L)).thenReturn(false);
 
@@ -127,7 +125,6 @@ class AssignFulfillmentUseCaseTest {
 
     @Test
     void shouldThrowExceptionWhenWarehouseNotFound() {
-
         when(storeResolver.existsById(1L)).thenReturn(true);
         when(productResolver.existsById(1L)).thenReturn(true);
         when(warehouseResolver.existsActiveById(1L)).thenReturn(false);
@@ -145,14 +142,13 @@ class AssignFulfillmentUseCaseTest {
 
     @Test
     void shouldThrowExceptionForDuplicateAssignment() {
-
         mockValidEntities();
 
         when(fulfillmentStore.existsAssignment(1L, 1L, 1L))
                 .thenReturn(true);
 
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
+        DuplicateFulfillmentException exception = assertThrows(
+                DuplicateFulfillmentException.class,
                 () -> useCase.assign(1L, 1L, 1L));
 
         assertEquals(
@@ -164,7 +160,6 @@ class AssignFulfillmentUseCaseTest {
 
     @Test
     void shouldRejectMoreThanTwoWarehousesForProductInStore() {
-
         mockValidEntities();
 
         when(fulfillmentStore.existsAssignment(1L, 1L, 1L))
@@ -186,7 +181,6 @@ class AssignFulfillmentUseCaseTest {
 
     @Test
     void shouldRejectMoreThanThreeWarehousesForStore() {
-
         mockValidEntities();
 
         when(fulfillmentStore.existsAssignment(1L, 1L, 1L))
@@ -214,7 +208,6 @@ class AssignFulfillmentUseCaseTest {
 
     @Test
     void shouldRejectMoreThanFiveProductsForWarehouse() {
-
         mockValidEntities();
 
         when(fulfillmentStore.existsAssignment(1L, 1L, 1L))
