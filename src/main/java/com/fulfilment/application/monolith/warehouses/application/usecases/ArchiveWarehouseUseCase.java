@@ -1,0 +1,38 @@
+
+package com.fulfilment.application.monolith.warehouses.application.usecases;
+
+import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
+import com.fulfilment.application.monolith.warehouses.application.ports.in.ArchiveWarehouseOperation;
+import com.fulfilment.application.monolith.warehouses.application.ports.out.WarehouseStore;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
+
+import java.time.LocalDateTime;
+
+@ApplicationScoped
+public class ArchiveWarehouseUseCase implements ArchiveWarehouseOperation {
+
+  private final WarehouseStore warehouseStore;
+
+  public ArchiveWarehouseUseCase(WarehouseStore warehouseStore) {
+    this.warehouseStore = warehouseStore;
+  }
+
+  @Override
+  @Transactional
+  public void archive(Warehouse warehouse) {
+
+    if (warehouse == null) {
+      throw new IllegalArgumentException("Warehouse not found");
+    }
+
+    if (warehouse.archivedAt != null) {
+      throw new IllegalArgumentException("Warehouse is already archived");
+    }
+
+    warehouse.archivedAt = LocalDateTime.now();
+
+    warehouseStore.update(warehouse);
+  }
+}

@@ -1,13 +1,16 @@
 
-package com.fulfilment.application.monolith.fulfilment;
+package com.fulfilment.application.monolith.fulfilment.adapters.database;
 
 import com.fulfilment.application.monolith.products.Product;
 import com.fulfilment.application.monolith.stores.Store;
 import com.fulfilment.application.monolith.warehouses.adapters.database.DbWarehouse;
+
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
+
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,7 +60,7 @@ class WarehouseFulfillmentRepositoryTest {
 
         entityManager.flush();
 
-        // Verify distinct warehouse count for Product 1 and Store
+        // Product 1 uses 2 different warehouses
         assertEquals(
                 2L,
                 repository.countWarehousesForProductAndStore(
@@ -91,10 +94,13 @@ class WarehouseFulfillmentRepositoryTest {
             DbWarehouse warehouse,
             Product product) {
 
-        WarehouseFulfillment fulfillment = new WarehouseFulfillment();
+        WarehouseFulfillmentEntity fulfillment =
+                new WarehouseFulfillmentEntity();
+
         fulfillment.store = store;
         fulfillment.warehouse = warehouse;
         fulfillment.product = product;
+
         entityManager.persist(fulfillment);
     }
 }

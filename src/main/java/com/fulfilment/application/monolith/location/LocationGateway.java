@@ -1,7 +1,7 @@
 package com.fulfilment.application.monolith.location;
 
 import com.fulfilment.application.monolith.warehouses.domain.models.Location;
-import com.fulfilment.application.monolith.warehouses.domain.ports.LocationResolver;
+import com.fulfilment.application.monolith.warehouses.application.ports.out.LocationResolver;
 import java.util.ArrayList;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;

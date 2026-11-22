@@ -1,9 +1,9 @@
 package com.fulfilment.application.monolith.warehouses.adapters.restapi;
 
-import com.fulfilment.application.monolith.warehouses.domain.ports.ArchiveWarehouseOperation;
-import com.fulfilment.application.monolith.warehouses.domain.ports.CreateWarehouseOperation;
-import com.fulfilment.application.monolith.warehouses.domain.ports.ReplaceWarehouseOperation;
-import com.fulfilment.application.monolith.warehouses.domain.ports.WarehouseStore;
+import com.fulfilment.application.monolith.warehouses.application.ports.in.ArchiveWarehouseOperation;
+import com.fulfilment.application.monolith.warehouses.application.ports.in.CreateWarehouseOperation;
+import com.fulfilment.application.monolith.warehouses.application.ports.in.ReplaceWarehouseOperation;
+import com.fulfilment.application.monolith.warehouses.application.ports.out.WarehouseStore;
 import com.warehouse.api.WarehouseResource;
 import com.warehouse.api.beans.Warehouse;
 import jakarta.enterprise.context.RequestScoped;

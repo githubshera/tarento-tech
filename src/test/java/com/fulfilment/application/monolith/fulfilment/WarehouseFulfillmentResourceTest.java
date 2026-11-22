@@ -1,9 +1,13 @@
 
-package com.fulfilment.application.monolith.fulfilment;
+package com.fulfilment.application.monolith.fulfilment.adapters.restapi;
+
+import com.fulfilment.application.monolith.fulfilment.application.ports.in.AssignFulfillmentOperation;
 
 import jakarta.ws.rs.core.Response;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -15,13 +19,14 @@ import static org.mockito.Mockito.verify;
 class WarehouseFulfillmentResourceTest {
 
     @Mock
-    WarehouseFulfillmentService fulfillmentService;
+    AssignFulfillmentOperation assignFulfillmentOperation;
 
     @InjectMocks
     WarehouseFulfillmentResource fulfillmentResource;
 
     @Test
     void shouldAssignWarehouseFulfillmentSuccessfully() {
+
         WarehouseFulfillmentRequest request =
                 new WarehouseFulfillmentRequest();
 
@@ -33,7 +38,7 @@ class WarehouseFulfillmentResourceTest {
 
         assertEquals(201, response.getStatus());
 
-        verify(fulfillmentService).assign(
+        verify(assignFulfillmentOperation).assign(
                 1L,
                 2L,
                 3L
